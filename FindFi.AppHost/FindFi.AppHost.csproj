@@ -10,8 +10,8 @@
 
     <ItemGroup>
         <!-- Orchestration resource providers -->
-        <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
-        <PackageReference Include="Aspire.Hosting.MongoDB" Version="9.0.0" />
+        <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.0.1" />
+        <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.0.1" />
     </ItemGroup>
 
     <ItemGroup>

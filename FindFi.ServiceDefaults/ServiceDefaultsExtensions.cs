@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
+using Serilog.Context;
 
 namespace FindFi.ServiceDefaults;
 
@@ -12,9 +13,12 @@ public static class ServiceDefaultsExtensions
 {
     public static WebApplicationBuilder AddServiceDefaults(this WebApplicationBuilder builder)
     {
+        var serviceName = builder.Environment.ApplicationName;
+
         // Serilog configuration
         Log.Logger = new LoggerConfiguration()
             .Enrich.FromLogContext()
+            .Enrich.WithProperty("ServiceName", serviceName)
             .Enrich.WithEnvironmentName()
             .Enrich.WithMachineName()
             .WriteTo.Console(formatter: new Serilog.Formatting.Compact.CompactJsonFormatter())
@@ -25,15 +29,16 @@ public static class ServiceDefaultsExtensions
         // Service discovery
         builder.Services.AddServiceDiscovery();
 
-        // OpenTelemetry tracing (HTTP, ASP.NET Core, SQL)
+        // OpenTelemetry tracing (HTTP, ASP.NET Core, SQL) + service custom sources
         builder.Services.AddOpenTelemetry()
-            .ConfigureResource(rb => rb.AddService(builder.Environment.ApplicationName))
+            .ConfigureResource(rb => rb.AddService(serviceName))
             .WithTracing(tracer =>
             {
                 tracer
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddSqlClientInstrumentation();
+                    .AddSqlClientInstrumentation()
+                    .AddSource(serviceName);
 
                 // OTLP exporter
                 tracer.AddOtlpExporter();
@@ -48,6 +53,9 @@ public static class ServiceDefaultsExtensions
         {
             app.UseDeveloperExceptionPage();
         }
+
+        // Ensure every request has a CorrelationId in logs and response header
+        app.UseCorrelationId();
 
         app.UseSerilogRequestLogging();
 

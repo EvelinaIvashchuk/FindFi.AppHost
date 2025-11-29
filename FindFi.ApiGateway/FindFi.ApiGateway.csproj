@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
     <!-- Service discovery integration for YARP -->
-    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="8.10.0" />
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="10.0.0" />
     <!-- Requested by requirements (not strictly needed in Web projects) -->
     <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.1" />
   </ItemGroup>
