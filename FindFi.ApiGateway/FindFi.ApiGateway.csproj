@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
+    <!-- Service discovery integration for YARP -->
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="8.10.0" />
+    <!-- Requested by requirements (not strictly needed in Web projects) -->
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FindFi.ServiceDefaults\FindFi.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,24 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.0.1">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>a0eb10a5-bdb3-4083-849c-3558ef3dd41e</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Orchestration resource providers -->
+        <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
+        <PackageReference Include="Aspire.Hosting.MongoDB" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- AppHost must reference all orchestrated projects for discovery -->
+        <ProjectReference Include="..\FindFi.ApiGateway\FindFi.ApiGateway.csproj" />
+        <ProjectReference Include="..\FindFi.Aggregator\FindFi.Aggregator.csproj" />
+        <ProjectReference Include="..\FindFi.ServiceDefaults\FindFi.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+</Project>
